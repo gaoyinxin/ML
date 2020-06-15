@@ -1,5 +1,6 @@
 import sys
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn import metrics
@@ -10,9 +11,10 @@ from sklearn.preprocessing import OneHotEncoder
 
 
 def func():
+    plt.interactive(True)
     dataset = pd.read_csv('../../resource/50_Startups.csv')
     x = dataset.iloc[:, : -1].values
-    y = dataset.iloc[:, 4].values
+    y = dataset.iloc[:, -1].values
 
     ct = ColumnTransformer(
         ([
@@ -31,6 +33,12 @@ def func():
 
     y_pred = model.predict(x_test)
 
+    plt.xlabel('test sample')
+    plt.ylabel("value")
+    plt.plot(y_test, color='blue')
+    plt.plot(y_pred, color='red')
+    plt.show()
+
     print('intercept {}'.format(model.intercept_))
     print('coef {}'.format(model.coef_))
     print('y_pred = {}'.format(y_pred))
@@ -45,5 +53,6 @@ def func():
 if __name__ == "__main__":
     try:
         func()
-    except Exception:
+    except Exception as e:
+        print(e)
         sys.exit()

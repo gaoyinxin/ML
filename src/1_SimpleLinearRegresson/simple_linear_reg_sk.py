@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 
 
 def func():
+    plt.interactive(True)
     dataset = pd.read_csv('../../resource/studentscores.csv')
     x = dataset.iloc[:, : 1].values
     y = dataset.iloc[:, 1].values
@@ -26,5 +27,6 @@ def func():
 if __name__ == "__main__":
     try:
         func()
-    except Exception:
+    except Exception as e:
+        print(e)
         sys.exit()
