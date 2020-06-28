@@ -27,6 +27,7 @@ def func():
     x = x[:, 1:]
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.20, random_state=0)
+    print(x_test)
 
     model = LinearRegression()
     model = model.fit(x_train, y_train)
@@ -38,6 +39,7 @@ def func():
     plt.plot(y_test, color='blue')
     plt.plot(y_pred, color='red')
     plt.show()
+    plt.close()
 
     print('intercept {}'.format(model.intercept_))
     print('coef {}'.format(model.coef_))
