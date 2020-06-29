@@ -1,31 +1,25 @@
 import sys
 
 import matplotlib.pyplot as plt
-import pandas as pd
 from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
+
+from common.LoadUtil import LoadUtil
+from common.PlotUtil import PlotUtil
 
 
 def func():
-    plt.interactive(True)
-    dataset = pd.read_csv('../../resource/studentscores.csv')
-    x = dataset.iloc[:, : 1].values
-    y = dataset.iloc[:, 1].values
-
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.25, random_state=0)
+    x_train, x_test, y_train, y_test = LoadUtil.load_data_sk('studentscores.csv')
 
     model = LinearRegression()
     model = model.fit(x_train, y_train)
-
     y_pred = model.predict(x_test)
 
-    plt.scatter(x_test, y_test, color='red')
-    plt.plot(x_test, y_pred, color='blue')
-    plt.show()
+    PlotUtil.compare_x_y(x_test, y_test, y_pred, 'Hour', 'Score')
 
 
 if __name__ == "__main__":
     try:
+        plt.interactive(True)
         func()
     except Exception as e:
         print(e)

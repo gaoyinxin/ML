@@ -6,40 +6,25 @@ import pandas as pd
 from sklearn import metrics
 from sklearn.compose import ColumnTransformer
 from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
+
+from common.LoadUtil import LoadUtil
+from common.PlotUtil import PlotUtil
 
 
 def func():
-    plt.interactive(True)
-    dataset = pd.read_csv('../../resource/50_Startups.csv')
-    x = dataset.iloc[:, : -1].values
-    y = dataset.iloc[:, -1].values
-
     ct = ColumnTransformer(
         ([
             ("OneHot", OneHotEncoder(), [3])
         ]), remainder='passthrough')
 
-    x = ct.fit_transform(x)
-
-    # Dummy variable trap
-    x = x[:, 1:]
-
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.20, random_state=0)
-    print(x_test)
+    x_train, x_test, y_train, y_test = LoadUtil.load_data_sk('50_Startups.csv', col_transformers=[ct])
 
     model = LinearRegression()
     model = model.fit(x_train, y_train)
-
     y_pred = model.predict(x_test)
 
-    plt.xlabel('test sample')
-    plt.ylabel("value")
-    plt.plot(y_test, color='blue')
-    plt.plot(y_pred, color='red')
-    plt.show()
-    plt.close()
+    PlotUtil.compare_y(y_test, y_pred, x_label='#', y_label='Profit')
 
     print('intercept {}'.format(model.intercept_))
     print('coef {}'.format(model.coef_))
@@ -54,6 +39,7 @@ def func():
 
 if __name__ == "__main__":
     try:
+        plt.interactive(True)
         func()
     except Exception as e:
         print(e)

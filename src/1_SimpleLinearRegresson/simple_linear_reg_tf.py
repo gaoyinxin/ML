@@ -1,19 +1,14 @@
 import sys
 
 import matplotlib.pyplot as plt
-import pandas as pd
 import tensorflow as tf
+
+from common.LoadUtil import LoadUtil
+from common.PlotUtil import PlotUtil
 
 
 def func():
-    plt.interactive(True)
-    dataset = pd.read_csv('../../resource/studentscores.csv')
-    train_dataset = dataset.sample(frac=0.8, random_state=0)
-    test_dataset = dataset.drop(train_dataset.index)
-    x_train = train_dataset.iloc[:, 0].values
-    y_train = train_dataset.iloc[:, 1].values
-    x_test = test_dataset.iloc[:, 0].values
-    y_test = test_dataset.iloc[:, 1].values
+    x_train, x_test, y_train, y_test = LoadUtil.load_data_sk('studentscores.csv')
 
     layer0 = tf.keras.layers.Dense(units=1, input_shape=[1])
     model = tf.keras.Sequential([layer0])
@@ -28,18 +23,13 @@ def func():
     test_loss, test_acc = model.evaluate(x_test, y_test)
     print('Test accuracy: {}'.format(test_acc))
 
-    plt.scatter(x_test, y_test, color='red')
-    plt.plot(x_test, y_pred, color='blue')
-    plt.show()
-
-    plt.xlabel('Epoch Number')
-    plt.ylabel("Loss Magnitude")
-    plt.plot(history.history['loss'])
-    plt.show()
+    PlotUtil.compare_x_y(x_test, y_test, y_pred, 'Hour', 'Score')
+    PlotUtil.display_loss(history)
 
 
 if __name__ == "__main__":
     try:
+        plt.interactive(True)
         func()
     except Exception as e:
         print(e)

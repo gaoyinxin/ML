@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import tensorflow as tf
 import tensorflow.feature_column as fc
-from sklearn.model_selection import train_test_split
+
+from common.LoadUtil import LoadUtil
+from common.PlotUtil import PlotUtil
 
 
 def estimator_input_fn(df_data, df_result):
@@ -19,23 +21,12 @@ def estimator_input_fn(df_data, df_result):
 def predict_input_fn(df_data):
     def input_function():
         return df_data.to_dict(orient='list')
+
     return input_function
 
 
 def func():
-    plt.interactive(True)
-
-    dataset = pd.read_csv('../../resource/50_Startups.csv')
-    # train_dataset = dataset.sample(frac=0.8, random_state=0)
-    # test_dataset = dataset.drop(train_dataset.index)
-    x = dataset.iloc[:, : -1].values
-    y = dataset.iloc[:, -1].values
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.20, random_state=0)
-    # x_train = train_dataset.iloc[:, :-1].values
-    # y_train = train_dataset.iloc[:, -1].values
-    # x_test = test_dataset.iloc[:, :-1].values
-    # y_test = test_dataset.iloc[:, -1].values
-    print(x_test)
+    x_train, x_test, y_train, y_test = LoadUtil.load_data_sk('50_Startups.csv')
 
     features = ['RnDSpend', 'Administration', 'MarketingSpend', 'State']
 
@@ -52,7 +43,7 @@ def func():
     train_input_fn = estimator_input_fn(x_train_df, y_train_df)
     test_input_fn = predict_input_fn(x_test_df)
 
-    linear_est = tf.estimator.LinearRegressor(feature_columns=feature_columns)
+    linear_est = tf.estimator.LinearRegressor(feature_columns=feature_columns, model_dir='logs/')
     linear_est.train(train_input_fn, steps=100)
     predictions = linear_est.predict(test_input_fn)
 
@@ -61,15 +52,12 @@ def func():
         predict = next(predictions)['predictions']
         y_pred.append(predict)
 
-    plt.xlabel('test sample')
-    plt.ylabel("value")
-    plt.plot(y_test, color='blue')
-    plt.plot(y_pred, color='red')
-    plt.show()
+    PlotUtil.compare_y(y_test, y_pred, x_label='#', y_label='Profit')
 
 
 if __name__ == "__main__":
     try:
+        plt.interactive(True)
         func()
     except Exception as e:
         print(e)
