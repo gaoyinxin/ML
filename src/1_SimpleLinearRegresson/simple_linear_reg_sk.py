@@ -14,13 +14,10 @@ def func():
     model = model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
 
-    PlotUtil.compare_x_y(x_test, y_test, y_pred, 'Hour', 'Score')
+    PlotUtil.display_simple_linear_result(x_test, y_test, y_pred, 'Hour', 'Score')
 
 
 if __name__ == "__main__":
-    try:
-        plt.interactive(True)
-        func()
-    except Exception as e:
-        print(e)
-        sys.exit()
+    plt.interactive(True)
+    func()
+    sys.exit()

@@ -25,6 +25,11 @@ class LoadUtil:
         return train_test_split(x, y, test_size=1 - train_ratio, random_state=0)
 
     @staticmethod
+    def load_data_df_sk(filename, train_ratio=0.8):
+        total_df = pd.read_csv(LoadUtil.resource_path(filename))
+        return train_test_split(total_df, test_size=1 - train_ratio, random_state=0)
+
+    @staticmethod
     def load_data(filename, train_ratio=0.8):
         dataset = pd.read_csv(LoadUtil.resource_path(filename))
         train_dataset = dataset.sample(frac=train_ratio, random_state=0)

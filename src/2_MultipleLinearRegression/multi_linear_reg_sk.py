@@ -24,7 +24,7 @@ def func():
     model = model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
 
-    PlotUtil.compare_y(y_test, y_pred, x_label='#', y_label='Profit')
+    PlotUtil.display_multiple_linear_result(y_test, y_pred, x_label='#', y_label='Profit')
 
     print('intercept {}'.format(model.intercept_))
     print('coef {}'.format(model.coef_))
@@ -38,9 +38,6 @@ def func():
 
 
 if __name__ == "__main__":
-    try:
-        plt.interactive(True)
-        func()
-    except Exception as e:
-        print(e)
-        sys.exit()
+    plt.interactive(True)
+    func()
+    sys.exit()

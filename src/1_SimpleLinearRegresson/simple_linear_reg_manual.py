@@ -18,13 +18,10 @@ def func():
 
     y_pred = W * x_test + b
 
-    PlotUtil.compare_x_y(x_test, y_test, y_pred, 'Hour', 'Score')
+    PlotUtil.display_simple_linear_result(x_test, y_test, y_pred, 'Hour', 'Score')
 
 
 if __name__ == "__main__":
-    try:
-        plt.interactive(False)
-        func()
-    except Exception as e:
-        print(e)
-        sys.exit()
+    plt.interactive(True)
+    func()
+    sys.exit()

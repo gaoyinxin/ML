@@ -23,14 +23,11 @@ def func():
     test_loss, test_acc = model.evaluate(x_test, y_test)
     print('Test accuracy: {}'.format(test_acc))
 
-    PlotUtil.compare_x_y(x_test, y_test, y_pred, 'Hour', 'Score')
+    PlotUtil.display_simple_linear_result(x_test, y_test, y_pred, 'Hour', 'Score')
     PlotUtil.display_loss(history)
 
 
 if __name__ == "__main__":
-    try:
-        plt.interactive(True)
-        func()
-    except Exception as e:
-        print(e)
-        sys.exit()
+    plt.interactive(True)
+    func()
+    sys.exit()
