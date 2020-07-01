@@ -12,6 +12,7 @@ class PlotUtil:
         Function to plot the decision boundary and data points of a model.
         Data points are colored based on their actual label.
         """
+        # pick color
         cmap = plt.get_cmap(cmap)
 
         # Define region of interest by data limits
@@ -23,6 +24,7 @@ class PlotUtil:
         xx, yy = np.meshgrid(x_span, y_span)
 
         # Make predictions across region of interest
+        # np.c_ merge
         labels = model.predict(np.c_[xx.ravel(), yy.ravel()])
 
         # Plot decision boundary in region of interest
