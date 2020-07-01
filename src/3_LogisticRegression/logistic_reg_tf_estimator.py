@@ -39,15 +39,19 @@ def func():
         num_epochs=1,
         shuffle=False)
 
+    y_pred = list()
     probabilities = classifier.predict(input_fn=test_input_fn)
     for i in range(len(y_test_df.values)):
         ret = next(probabilities)
         classes = ret['classes']
+        y_pred.append(int(classes))
         print('test: {}  predict: {}'.format(y_test_df.values[i], classes))
 
     eval_results = classifier.evaluate(input_fn=test_input_fn)
     for key, value in sorted(eval_results.items()):
         print('%s: %s' % (key, value))
+
+    PlotUtil.display_confusion_matrix(y_test_df.values, y_pred)
 
 
 if __name__ == "__main__":
