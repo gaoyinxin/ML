@@ -5,7 +5,7 @@ import tensorflow as tf
 from keras_preprocessing.image import ImageDataGenerator
 from tensorflow.keras import datasets, layers, models
 
-EPOCHS = 5
+EPOCHS = 10
 NUM_CLASSES = 10
 
 # CIFAR_10 is a set of 60K images 32x32 pixels on 3 channels
@@ -65,23 +65,23 @@ def func():
     model.compile(loss='categorical_crossentropy', optimizer='RMSprop', metrics=['accuracy'])
 
     # Manipulate images to have more training data
-    datagen = ImageDataGenerator(
-        rotation_range=30,
-        width_shift_range=0.2,
-        height_shift_range=0.2,
-        horizontal_flip=True,
-    )
-    datagen.fit(x_train)
-
-    model.fit_generator(datagen.flow(x_train, y_train, batch_size=BATCH_SIZE),
-                        epochs=EPOCHS, verbose=1, validation_data=(x_test, y_test))
-    # model.fit(x_train, y_train, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_data=(x_test, y_test))
+    # datagen = ImageDataGenerator(
+    #     rotation_range=30,
+    #     width_shift_range=0.2,
+    #     height_shift_range=0.2,
+    #     horizontal_flip=True,
+    # )
+    # datagen.fit(x_train)
+    #
+    # model.fit_generator(datagen.flow(x_train, y_train, batch_size=BATCH_SIZE),
+    #                     epochs=EPOCHS, verbose=1, validation_data=(x_test, y_test))
+    model.fit(x_train, y_train, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_data=(x_test, y_test))
 
     # save model to disk
     model_json = model.to_json()
-    with open('model.json', 'w') as json_file:
+    with open('cifar10_architecture.json', 'w') as json_file:
         json_file.write(model_json)
-    model.save_weights('model.h5')
+    model.save_weights('cifar10_weights.h5')
 
     score = model.evaluate(x_test, y_test, batch_size=BATCH_SIZE)
     print("\nTest score:", score[0])

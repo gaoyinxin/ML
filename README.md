@@ -3,7 +3,7 @@
 ## Environment
 https://docs.floydhub.com/guides/environments/
 ```shell script
-pip install --upgrade tensorflow=2.2.0
+pip install --upgrade tensorflow==2.2.0
 pip install --upgrade Keras==2.3.1
 ```
 
