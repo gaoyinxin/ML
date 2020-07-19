@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 import tensorflow.feature_column as fc
+from tensorflow_estimator.python.estimator.inputs.pandas_io import pandas_input_fn
 
 from common.LoadUtil import LoadUtil
 from common.PlotUtil import PlotUtil
@@ -25,7 +26,7 @@ def func():
 
     classifier = tf.estimator.LinearClassifier(feature_columns=feature_columns, n_classes=2, model_dir='logs/')
 
-    train_input_fn = tf.compat.v1.estimator.inputs.pandas_input_fn(
+    train_input_fn = pandas_input_fn(
         x=x_train_df,
         y=y_train_df,
         num_epochs=None,
@@ -33,7 +34,7 @@ def func():
 
     classifier.train(train_input_fn, steps=1000)
 
-    test_input_fn = tf.compat.v1.estimator.inputs.pandas_input_fn(
+    test_input_fn = pandas_input_fn(
         x=x_test_df,
         y=y_test_df,
         num_epochs=1,

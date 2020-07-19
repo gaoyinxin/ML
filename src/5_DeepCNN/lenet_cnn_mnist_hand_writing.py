@@ -26,8 +26,8 @@ def func():
     # normalize
     x_train, x_test = x_train / 255.0, x_test / 255.0
     # cast
-    X_train = x_train.astype('float32')
-    X_test = x_test.astype('float32')
+    x_train = x_train.astype('float32')
+    x_test = x_test.astype('float32')
 
     # convert class vectors to binary class matrices
     y_train = tf.keras.utils.to_categorical(y_train, 10)
@@ -43,9 +43,8 @@ def func():
     ]
 
     # fit
-    history = model.fit(X_train, y_train, batch_size=128, epochs=20, verbose=1,
-                        validation_split=0.2, callbacks=callbacks)
-    score = model.evaluate(X_test, y_test, verbose=1)
+    history = model.fit(x_train, y_train, batch_size=128, epochs=20, verbose=1, validation_split=0.2, callbacks=callbacks)
+    score = model.evaluate(x_test, y_test, verbose=1)
     print("\nTest score:", score[0])
     print('Test accuracy:', score[1])
     PlotUtil.display_loss(history)

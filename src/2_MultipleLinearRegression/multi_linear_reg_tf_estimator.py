@@ -3,6 +3,7 @@ import sys
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import tensorflow.feature_column as fc
+from tensorflow_estimator.python.estimator.inputs.pandas_io import pandas_input_fn
 
 from common.LoadUtil import LoadUtil
 from common.PlotUtil import PlotUtil
@@ -23,7 +24,7 @@ def func():
                        fc.categorical_column_with_vocabulary_list('State', vocabulary_list=['New York', 'California',
                                                                                             'Florida'])]
 
-    train_input_fn = tf.compat.v1.estimator.inputs.pandas_input_fn(
+    train_input_fn = pandas_input_fn(
         x=x_train_df,
         y=y_train_df,
         num_epochs=None,
@@ -32,7 +33,7 @@ def func():
     linear_est = tf.estimator.LinearRegressor(feature_columns=feature_columns, model_dir='logs/')
     linear_est.train(train_input_fn, steps=100)
 
-    test_input_fn = tf.compat.v1.estimator.inputs.pandas_input_fn(
+    test_input_fn = pandas_input_fn(
         x=x_test_df,
         y=y_test_df,
         num_epochs=1,

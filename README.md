@@ -1,4 +1,4 @@
-# ML
+# Machine Learning
 
 ## Environment
 https://docs.floydhub.com/guides/environments/
@@ -9,7 +9,7 @@ pip install --upgrade Keras==2.3.1
 
 ## Test Data
 
-### MNIST (11M)
+### MNIST Hand Writing (11M)
 https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
 ```shell script
 mv mnist.npz ~/.keras/datasets
@@ -21,6 +21,15 @@ https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
 mv cifar-10-python.tar.gz ~/.keras/datasets
 cd ~/.keras/datasets
 mv cifar-10-python.tar.gz cifar-10-batches-py.tar.gz
+```
+
+### MNIST Fashion (30M)
+https://gitee.com/mirrors/Fashion-MNIST
+```shell script
+mv train-images-idx3-ubyte.gz ~/.keras/datasets/fashion-mnist/
+mv train-labels-idx1-ubyte.gz ~/.keras/datasets/fashion-mnist/
+mv t10k-images-idx3-ubyte.gz ~/.keras/datasets/fashion-mnist/
+mv t10k-labels-idx1-ubyte.gz ~/.keras/datasets/fashion-mnist/
 ```
 
 ### VGG16 Model (500M)

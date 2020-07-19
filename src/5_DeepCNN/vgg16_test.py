@@ -5,10 +5,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tensorflow.keras.applications.vgg16 import VGG16
 
-'''
-What's VGG: https://zhuanlan.zhihu.com/p/41423739
-'''
+
 def func():
+    """
+    What's VGG: https://zhuanlan.zhihu.com/p/41423739
+    """
     # prebuild model with pre-trained weights on imagenet
     model = VGG16(weights='imagenet', include_top=True)
     model.compile(optimizer='sgd', loss='categorical_crossentropy')
