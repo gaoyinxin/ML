@@ -5,6 +5,7 @@ https://docs.floydhub.com/guides/environments/
 ```shell script
 pip install --upgrade tensorflow==2.2.0
 pip install --upgrade Keras==2.3.1
+pip install tensorflow_datasets
 ```
 
 ## Test Data
@@ -30,6 +31,15 @@ mv train-images-idx3-ubyte.gz ~/.keras/datasets/fashion-mnist/
 mv train-labels-idx1-ubyte.gz ~/.keras/datasets/fashion-mnist/
 mv t10k-images-idx3-ubyte.gz ~/.keras/datasets/fashion-mnist/
 mv t10k-labels-idx1-ubyte.gz ~/.keras/datasets/fashion-mnist/
+```
+
+### Cats VS Dogs 
+## Full (825M)
+https://tensorflow.google.cn/datasets/catalog/cats_vs_dogs
+## Filtered (69M)
+https://storage.googleapis.com/mledu-datasets/cats_and_dogs_filtered.zip
+```shell script
+mv cats_and_dogs_filtered.zip ~/.keras/datasets/
 ```
 
 ### VGG16 Model (500M)

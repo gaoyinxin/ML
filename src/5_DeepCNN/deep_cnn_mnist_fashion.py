@@ -39,6 +39,7 @@ def build_model():
 def convert_model_2_estimator(model):
     model.compile(loss='categorical_crossentropy', optimizer=tf.keras.optimizers.SGD(), metrics=['accuracy'])
     strategy = None
+    # https://zhuanlan.zhihu.com/p/73580663
     # strategy = tf.distribute.MirroredStrategy()
     config = tf.estimator.RunConfig(train_distribute=strategy, keep_checkpoint_max=5,
                                     log_step_count_steps=20, save_checkpoints_steps=200)
